@@ -7,11 +7,11 @@
       <div class="weather__wrap">
         <div class="location__box">
           <div class="location">Perris, CA, USA</div>
-          <div class="weather__date">Friday, May 29, 2020</div>
+          <div class="location__date">Friday, May 29, 2020</div>
         </div>
         <div class="weather__box">
-          <div class="weather_temp">95°F</div>
-          <div class="weather">Sunny</div>
+          <div class="weather__temp">105°F</div>
+          <div class="weather">Hot</div>
         </div>
       </div>
     </main>
@@ -81,5 +81,36 @@ main {
   background-color: rgba(255, 255, 255, 0.75);
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
   border-radius: 16px 0px 16px 0px;
+}
+
+.location__box .location {
+  color: white;
+  font-size: 32px;
+  font-weight: 500;
+  text-align: center;
+  text-shadow: 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.location__box .location__date {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 300;
+  font-style: italic;
+  text-align: center;
+}
+
+.weather__box {
+  text-align: center;
+}
+.weather__box .weather__temp {
+  display: inline-block;
+  padding: 10px 25px;
+  color: #fff;
+  font-size: 102px;
+  font-weight: 900;
+  text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+  margin: 30px 0px;
 }
 </style>

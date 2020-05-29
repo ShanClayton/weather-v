@@ -4,6 +4,16 @@
       <div class="search__box">
         <input type="text" class="search__bar" placeholder="Search..." />
       </div>
+      <div class="weather__wrap">
+        <div class="location__box">
+          <div class="location">Perris, CA, USA</div>
+          <div class="weather__date">Friday, May 29, 2020</div>
+        </div>
+        <div class="weather__box">
+          <div class="weather_temp">95°F</div>
+          <div class="weather">Sunny</div>
+        </div>
+      </div>
     </main>
   </div>
 </template>
@@ -13,9 +23,9 @@ export default {
   name: "App",
   data() {
     return {
-      api_key: "0e82bb16227c1a3b88661dd32729d7b1",
+      api_key: "0e82bb16227c1a3b88661dd32729d7b1"
     };
-  },
+  }
 };
 </script>
 

@@ -2,16 +2,22 @@
   <div id="app">
     <main>
       <div class="search__box">
-        <input type="text" class="search__bar" placeholder="Search..." />
+        <input
+          type="text"
+          class="search__bar"
+          placeholder="Search..."
+          v-model="query"
+          @keypress="fetchWeather"
+        />
       </div>
-      <div class="weather__wrap">
+      <div class="weather__wrap" v-if="typeof weather.main != 'undefined'">
         <div class="location__box">
-          <div class="location">Perris, CA, USA</div>
-          <div class="location__date">Friday, May 29, 2020</div>
+          <div class="location">{{weather.name}}, {{weather.sys.country}}</div>
+          <div class="location__date">{{dateBuilder()}}</div>
         </div>
         <div class="weather__box">
-          <div class="weather__temp">105°F</div>
-          <div class="weather">Hot</div>
+          <div class="weather__temp">{{Math.round(weather.main.temp)}}°F</div>
+          <div class="weather">{{weather.weather[0].main}}</div>
         </div>
       </div>
     </main>
@@ -23,8 +29,58 @@ export default {
   name: "App",
   data() {
     return {
-      api_key: "0e82bb16227c1a3b88661dd32729d7b1"
+      api_key: "0e82bb16227c1a3b88661dd32729d7b1",
+      url_base: "https://api.openweathermap.org/data/2.5/",
+      query: "",
+      weather: {}
     };
+  },
+  methods: {
+    fetchWeather(e) {
+      if (e.key == "Enter") {
+        fetch(
+          `${this.url_base}weather?q=${this.query}&units=imperial&APPID=${this.api_key}`
+        )
+          .then(res => {
+            return res.json();
+          })
+          .then(this.setResults);
+      }
+    },
+    setResults(results) {
+      this.weather = results;
+    },
+    dateBuilder() {
+      let d = new Date();
+      let months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ];
+      let days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ];
+      let day = days[d.getDay()];
+      let date = d.getDate();
+      let month = months[d.getMonth()];
+      let year = d.getFullYear();
+      return `${day} ${date} ${month} ${year}`;
+    }
   }
 };
 </script>
@@ -42,7 +98,7 @@ body {
 }
 
 #app {
-  background-image: url(./assets/cold-bg.jpg);
+  background-image: url(./assets/rain-bkgd.jpg);
   background-size: cover;
   background-position: bottom;
   transition: 0.4s;
@@ -112,5 +168,14 @@ main {
   background-color: rgba(255, 255, 255, 0.25);
   border-radius: 16px;
   margin: 30px 0px;
+  box-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+.weather__box .weather {
+  color: #fff;
+  font-size: 48px;
+  font-weight: 700;
+  font-style: italic;
+  text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
 }
 </style>
